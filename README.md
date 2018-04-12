@@ -8,6 +8,10 @@
 
 ![image](https://user-images.githubusercontent.com/29076661/38655834-6c4085a6-3ddc-11e8-8df5-ebcd94200f8e.png)
 
+### 1 Enter the book isbn in the book isbn text field input. An assumption is made that you have added this book to the database. You will need to enter a valid isbn number because implemented regular expression methods  check the isbn is a valid one. Press enter to display book information and availability
+### 2 Enter the member id you wish to issue the book to. An assumption is made that you have added this member to the database. Press enter to display member information. Verify that the book isbn and member
+### information is present before clicking the issue button. If the information isn't accurate, book issuance will not successuful.
+### You get helpful error message telling what needs to be done. 
 ### Add member
 
 ![image](https://user-images.githubusercontent.com/29076661/38655893-9b81ecd8-3ddc-11e8-9c9f-2f33655a5f0b.png)
