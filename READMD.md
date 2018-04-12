@@ -1,4 +1,11 @@
 
+###Login screen of the app
+![image](https://user-images.githubusercontent.com/29076661/38656222-b5259f3e-3dde-11e8-92db-4da8824a6805.png)
+
+### App main window
+![image](https://user-images.githubusercontent.com/29076661/38656248-e62d48f2-3dde-11e8-92f5-b5ef074980a8.png)
+
+
 ![image](https://user-images.githubusercontent.com/29076661/38655834-6c4085a6-3ddc-11e8-8df5-ebcd94200f8e.png)
 
 ### Add member
