@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="358.0" prefWidth="344.0" stylesheets="@../resources/css/styles.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.momo.UserLogin.UserLoginController">
+   <children>
+      <JFXTextField fx:id="txtUsername" focusColor="#bbb8b2" labelFloat="true" layoutX="54.0" layoutY="104.0" prefHeight="38.0" prefWidth="271.0" promptText="Username" unFocusColor="#bbb8b2">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField fx:id="txtPassword" focusColor="#bbb8b2" labelFloat="true" layoutX="54.0" layoutY="172.0" prefHeight="38.0" prefWidth="271.0" promptText="Password" stylesheets="@../resources/css/styles.css" unFocusColor="#bbb8b2">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXButton defaultButton="true" layoutX="18.0" layoutY="299.0" onAction="#loginUser" prefHeight="38.0" prefWidth="148.0" styleClass="login-button" text="Login" />
+      <JFXButton cancelButton="true" layoutX="177.0" layoutY="299.0" onAction="#cancelLogin" prefHeight="38.0" prefWidth="148.0" styleClass="login-button" text="Cancel" />
+      <Text fx:id="lblError" layoutX="34.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" wrappingWidth="295.0000062286854">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <FontAwesomeIconView glyphName="LOCK" layoutX="152.0" layoutY="78.0" size="62" />
+      <FontAwesomeIconView glyphName="USER" layoutX="18.0" layoutY="137.0" size="30" wrappingWidth="22.13672161102295" />
+      <FontAwesomeIconView glyphName="KEY" layoutX="18.0" layoutY="210.0" size="30" text="" wrappingWidth="22.13672161102295" />
+   </children>
+</AnchorPane>

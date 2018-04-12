@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="622.0" stylesheets="@addBook.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.momo.addbooks.AddBookController">
+   <children>
+      <HBox prefHeight="366.0" prefWidth="294.0">
+         <children>
+            <VBox prefHeight="300.0" prefWidth="294.0">
+               <children>
+                  <Label fx:id="lblError" prefHeight="37.0" prefWidth="187.0" text="Author's Information">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Times New Roman Bold" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXTextField fx:id="authorFirstName" labelFloat="true" prefHeight="0.0" prefWidth="294.0" promptText="First Name">
+                     <padding>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="authorLastName" labelFloat="true" layoutX="10.0" layoutY="181.0" promptText="Last Name">
+                     <padding>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="authorCity" labelFloat="true" layoutX="10.0" layoutY="161.0" promptText="City">
+                     <padding>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="authorState" labelFloat="true" layoutX="10.0" layoutY="161.0" promptText="State">
+                     <padding>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXDatePicker fx:id="authorDateOfBirth" defaultColor="#2956eb" editable="false" prefHeight="55.0" prefWidth="281.0" promptText="Date Of Birth">
+                     <padding>
+                        <Insets right="10.0" top="30.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </JFXDatePicker>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox layoutX="311.0" prefHeight="366.0" prefWidth="294.0">
+         <children>
+            <VBox prefHeight="486.0" prefWidth="300.0">
+               <children>
+                  <Label prefHeight="37.0" prefWidth="187.0" text="Book Information">
+                     <font>
+                        <Font name="Times New Roman Bold" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <JFXTextField fx:id="bookTitle" labelFloat="true" prefHeight="0.0" prefWidth="294.0" promptText="Book Title">
+                     <padding>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="copyRightYear" labelFloat="true" layoutX="10.0" layoutY="10.0" promptText="Copy Right Year">
+                     <padding>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="bookPublisher" labelFloat="true" layoutX="10.0" layoutY="124.0" promptText="Publisher">
+                     <padding>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="bookIsbn" labelFloat="true" layoutX="10.0" layoutY="181.0" promptText="Book ISBN">
+                     <padding>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="bookEdition" focusColor="#0c3fd7" labelFloat="true" layoutX="10.0" layoutY="238.0" promptText="Edition">
+                     <padding>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Pane layoutX="-4.0" layoutY="383.0" prefHeight="68.0" prefWidth="630.0" />
+      <JFXButton fx:id="btnSave1" cancelButton="true" layoutX="294.0" layoutY="355.0" onAction="#cancelSave" prefHeight="49.0" prefWidth="328.0" stylesheets="@addBook.css" text="Cancel">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="37.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/images/error.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btnSave" defaultButton="true" layoutX="-6.0" layoutY="355.0" onAction="#saveBookToDatabase" prefHeight="49.0" prefWidth="307.0" stylesheets="@addBook.css" text="Save">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="31.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/images/save.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>

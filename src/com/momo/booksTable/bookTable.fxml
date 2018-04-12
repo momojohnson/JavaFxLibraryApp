@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.momo.booksTable.BookTableController">
+   <children>
+      <TableView fx:id="bookTable" layoutX="72.0" layoutY="84.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+            <TableColumn prefWidth="65.0" text="AUTHID">
+               <cellValueFactory>
+                  <PropertyValueFactory property="authorId" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="65.0" text="FNAME">
+                <cellValueFactory>
+                    <PropertyValueFactory property="authorFirstName" />
+                </cellValueFactory>
+            </TableColumn>
+          <TableColumn editable="false" prefWidth="71.0" text="LNAME">
+              <cellValueFactory>
+                  <PropertyValueFactory property="authorLastName" />
+              </cellValueFactory>
+          </TableColumn>
+            <TableColumn prefWidth="100.0" text="BOOK TITLE">
+                <cellValueFactory>
+                    <PropertyValueFactory property="bookTitle" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="PUBLISHER">
+                <cellValueFactory>
+                    <PropertyValueFactory property="bookPublisher" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="ISBN">
+                <cellValueFactory>
+                    <PropertyValueFactory property="bookIsbn" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="Book Edition">
+                <cellValueFactory>
+                    <PropertyValueFactory property="bookEdition" />
+                </cellValueFactory>
+
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="AVAILABILITY">
+                <cellValueFactory>
+                    <PropertyValueFactory property="bookAvailability" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#deleteBook" text="Delete Book" />
+                  <MenuItem mnemonicParsing="false" onAction="#editBook" text="Edit Book" />
+                  <MenuItem mnemonicParsing="false" onAction="#refreshTable" text="Refresh" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+   </children>
+</AnchorPane>

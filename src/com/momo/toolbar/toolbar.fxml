@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="500.0" prefWidth="151.0" stylesheets="@../resources/css/styles.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.momo.toolbar.ToolBarController">
+   <children>
+      <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#addMember" prefHeight="400.0" prefWidth="150.0" styleClass="toolbar-bottons" text="Add Member">
+         <graphic>
+            <FontAwesomeIconView glyphName="USER_PLUS" size="50" />
+         </graphic>
+      </JFXButton>
+      <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewMembers" prefHeight="400.0" prefWidth="150.0" text="View Members">
+         <graphic>
+            <FontAwesomeIconView glyphName="LIST" size="50" />
+         </graphic>
+      </JFXButton>
+      <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#addBook" prefHeight="400.0" prefWidth="150.0" styleClass="toolbar-bottons" text="Add Books">
+         <graphic>
+            <FontAwesomeIconView glyphName="BOOK" size="50" />
+         </graphic>
+      </JFXButton>
+      <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewBooks" prefHeight="400.0" prefWidth="150.0" styleClass="toolbar-bottons" text="View Books">
+         <graphic>
+            <FontAwesomeIconView glyphName="LIST" size="50" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btnSetting" contentDisplay="TOP" layoutX="10.0" layoutY="263.0" mnemonicParsing="false" onAction="#loadSetting" prefHeight="400.0" prefWidth="150.0" styleClass="toolbar-bottons" text="View Books">
+         <graphic>
+            <FontAwesomeIconView glyphName="GEARS" size="50" />
+         </graphic>
+      </JFXButton>
+   </children>
+</VBox>

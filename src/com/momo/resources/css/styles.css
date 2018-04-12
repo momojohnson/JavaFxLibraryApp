@@ -1,0 +1,99 @@
+
+ * {
+    -fx-mainwindowbackground-color: #2e2e3a;
+    -fx-secondary-color: #bbb8b2;
+    -fx-third-color: #f34213;
+     -fx-danger-color: #FF1D15;
+}
+
+
+
+
+
+.root{
+    -fx-background-color: -fx-mainwindowbackground-color;
+}
+
+.glyph-icon{
+    -fx-fill: #bbb8b2;
+}
+
+ .button{
+     -fx-text-fill:-fx-secondary-color;
+     -fx-background-color: -fx-mainwindowbackground-color;
+ }
+
+ /* login styling starts here */
+ .button{
+     -fx-border-radius: 15px;
+     -fx-border-color: -fx-third-color;
+     -fx-background-radius: 15px;
+     -fx-text-fill: white;
+
+ }
+
+.button:hover{
+    -fx-background-color: -fx-third-color;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+}
+
+
+ .text-field{
+     -fx-text-fill: -fx-third-color;
+     -fx-font-size: 13px;
+     -jfx-focus-color: -fx-third-color;
+ }
+
+ .wrong-login-credentials{
+     -jfx-focus-color: -fx-danger-color;
+     -fx-text-fill: -fx-danger-color;
+ }
+
+ /* Styling of main window starts here */
+
+ .tab{
+     -fx-pref-width: 350px;
+     -fx-pref-height: 60px;
+     -fx-background-color: -fx-mainwindowbackground-color;
+ }
+
+ .tab-header-background{
+     -fx-background-color: -fx-mainwindowbackground-color;
+ }
+
+ .menu-bar{
+     -fx-base: -fx-mainwindowbackground-color;
+     -fx-background-color: -fx-mainwindowbackground-color;;
+ }
+
+ .context-menu{
+     -fx-background-color: derive(-fx-mainwindowbackground-color, 5%);
+ }
+
+ /* Styling jfx hamburger starts here*/
+ .jfx-hamburger-icon{
+     -fx-spacing: 5;
+ }
+ .jfx-hamburger-icon StackPane{
+     -fx-background-color: -fx-secondary-color;
+     -fx-background-radius: 5px;
+ }
+
+ /* Styling of toolbar */
+ .toolbar-bottons{
+     -fx-background-color: derive(-fx-mainwindowbackground-color, 20%);
+ }
+
+ .toolbar-bottons:hover{
+     -fx-background-color: -fx-third-color;
+ }
+
+ .submission-renewal{
+     -fx-background-color: derive(-fx-mainwindowbackground-color, 20%)
+ }
+
+ .text{
+     -fx-fill: -fx-secondary-color;
+     -fx-font-size: 17px;
+ }
