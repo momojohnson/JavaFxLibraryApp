@@ -1,6 +1,6 @@
 package com.momo.membersTable;
 
-import com.momo.Utils.Utils;
+import com.momo.utils.Utils;
 import com.momo.addmembers.AddMemberController;
 import com.momo.datamodel.DataSource;
 import com.momo.datamodel.Member;

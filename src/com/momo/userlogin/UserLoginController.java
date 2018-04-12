@@ -1,8 +1,8 @@
-package com.momo.UserLogin;
+package com.momo.userlogin;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import com.momo.Utils.Utils;
+import com.momo.utils.Utils;
 import com.momo.Validator;
 import com.momo.datamodel.LibrarySettings;
 import javafx.application.Platform;

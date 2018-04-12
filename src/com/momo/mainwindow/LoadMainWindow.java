@@ -1,6 +1,6 @@
 package com.momo.mainwindow;
 
-import com.momo.Utils.Utils;
+import com.momo.utils.Utils;
 import com.momo.datamodel.DataSource;
 import com.momo.datamodel.LibrarySettings;
 import javafx.application.Application;
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public class LoadMainWindow extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/momo/UserLogin/userLogin.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/momo/userlogin/userLogin.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image(Utils.TITLE_IMAGE_URL));

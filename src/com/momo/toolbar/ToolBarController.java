@@ -1,6 +1,6 @@
 package com.momo.toolbar;
 
-import com.momo.Utils.Utils;
+import com.momo.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
