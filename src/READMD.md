@@ -1,5 +1,5 @@
+### Login screen of the app
 
-###Login screen of the app
 ![image](https://user-images.githubusercontent.com/29076661/38656222-b5259f3e-3dde-11e8-92db-4da8824a6805.png)
 
 ### App main window
