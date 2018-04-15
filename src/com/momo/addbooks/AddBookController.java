@@ -2,11 +2,11 @@ package com.momo.addbooks;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import com.momo.Validator;
 import com.momo.datamodel.Book;
 import com.momo.datamodel.DataSource;
+import com.momo.utils.CustomizeAlertMessages;
+import com.momo.utils.Validator;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -41,15 +41,15 @@ public class AddBookController {
     @FXML
     private Label lblError; // Label to display error;
 
-    private boolean isUpdatable = false;
+    private boolean isUpdatable = false; // Check if the book is updatable
     @FXML
-    private AnchorPane anchorPane;
+    private AnchorPane anchorPane; // An anchorpane for the add books
 
     @FXML
     private DataSource dataSource; // Data source instance of database class
     private DateTimeFormatter formatter;
 
-    private int authorID;
+    private int authorID; // Author Id
 
 
     public void initialize(){
@@ -62,23 +62,20 @@ public class AddBookController {
 
     }
 
-    // Saves book data to the database
+    // An event handler that handles saving data to database
     @FXML
     public void saveBookToDatabase(){
 
 
         if(validData()){
             LocalDate birthDate = authorDateOfBirth.getValue();
+            // A condition to update book information
             if(isUpdatable){
                 DataSource.getInstance().updateAuthorRecord(authorFirstName.getText(), authorLastName.getText(), authorCity.getText(),
                        authorState.getText(), birthDate, authorID);
                 DataSource.getInstance().updateBookRecord(bookTitle.getText(), Integer.parseInt(bookEdition.getText()), bookPublisher.getText(), Integer.parseInt(copyRightYear.getText()),
                         bookIsbn.getText());
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Book Updated");
-                alert.setHeaderText(String.format("Book record updated"));
-                alert.setContentText("Book has been updated successfully");
-                alert.showAndWait();
+                CustomizeAlertMessages.showAlertInformationType("Book Updated", String.format("Book record updated"), "Book has been updated successfully");
 
                 return;
 
@@ -96,21 +93,16 @@ public class AddBookController {
             Date date = Date.valueOf(birthDateAuthor.toString());
             boolean isBookSave = dataSource.insertRecordIntoAuthorIsbnTable(firstName, lastName, date, city, state,
                     isbn, title,edition,publisher,copyRight,true);
+
+            // This is new book. Add the book to the database
             if(!isBookSave){
-                // Alert the user that book has been save to the database
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Book Data save");
-                alert.setHeaderText("Book information save successfully");
-                alert.setContentText("Book information has been saved successfully");
-                alert.showAndWait();
+                CustomizeAlertMessages.showAlertInformationType("Book information saved", "Book information saved",
+                        "Book information has been saved successfully");
                 return;
 
             }
             // Informed that user that the book does exist in the database. Therefore the book will not be added.
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("This Book Already Added");
-            alert.setContentText("This book is already save in our database");
-            alert.showAndWait();
+            CustomizeAlertMessages.showAlertInformationType("Book Exist", "This book already exist in our database", "This book has already been saved.");
 
         }
 
@@ -218,6 +210,7 @@ public class AddBookController {
         return true;
     }
 
+    // Set books value in various inputs
     public void setBookUis(Book books){
         authorFirstName.setText(books.getAuthorFirstName());
         authorLastName.setText(books.getAuthorLastName());

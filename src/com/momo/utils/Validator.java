@@ -1,4 +1,4 @@
-package com.momo;
+package com.momo.utils;
 
 
 import javafx.scene.control.DatePicker;
@@ -8,7 +8,7 @@ public class Validator
 {
 
 
-
+    // Checks if a ui is empty
    public   static <T extends TextInputControl> boolean isValidData(T control){
         if(control.getText().equals("") || control.getText().trim().equals("")){
             return false;

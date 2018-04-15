@@ -1,11 +1,11 @@
 package com.momo.addmembers;
 
 import com.jfoenix.controls.JFXTextField;
-import com.momo.Validator;
 import com.momo.datamodel.DataSource;
 import com.momo.datamodel.Member;
+import com.momo.utils.CustomizeAlertMessages;
+import com.momo.utils.Validator;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.AnchorPane;
@@ -16,35 +16,36 @@ import javafx.stage.Stage;
 
 public class AddMemberController {
     @FXML
-    private JFXTextField txtFirstName;
+    private JFXTextField txtFirstName; // text field for member first name
     @FXML
-    private JFXTextField txtLastName;
+    private JFXTextField txtLastName; // text field for member last name
     @FXML
-    private JFXTextField txtMemberId;
+    private JFXTextField txtMemberId; // text field for member id
     @FXML
-    private JFXTextField txtStreetAddress;
+    private JFXTextField txtStreetAddress; // text field for member address
     @FXML
-    private JFXTextField txtCity;
+    private JFXTextField txtCity; // text field for member city
     @FXML
-    private JFXTextField txtState;
+    private JFXTextField txtState; // text field for member state
     @FXML
-    private JFXTextField txtZipCode;
+    private JFXTextField txtZipCode; // text field for member zip code
     @FXML
-    private JFXTextField txtPhone;
+    private JFXTextField txtPhone; // text field for member phone number
     @FXML
-    private JFXTextField txtEmail;
+    private JFXTextField txtEmail; // text field for member email
 
     @FXML
     private Label lblError;
     @FXML
-    private AnchorPane anchorPane;
+    private AnchorPane anchorPane; // An anchor hat contain inputs uis
     private boolean isUpdated = false;
-    private int streedId;
+    private int streetId;
 
     public void initialize(){
 
     }
 
+    // An event handler that adds a member to the database
     @FXML
     public void addMember(){
 
@@ -53,7 +54,7 @@ public class AddMemberController {
             if(isUpdated){
                 DataSource.getInstance().updateMemberRecord(txtFirstName.getText(), txtLastName.getText(), txtPhone.getText(), txtEmail.getText(),
                         txtMemberId.getText());
-                DataSource.getInstance().updateAddressRecord(txtStreetAddress.getText(), txtCity.getText(), txtState.getText(), txtZipCode.getText(), streedId);
+                DataSource.getInstance().updateAddressRecord(txtStreetAddress.getText(), txtCity.getText(), txtState.getText(), txtZipCode.getText(), streetId);
                 clearInputs(txtFirstName, txtLastName, txtPhone, txtEmail, txtMemberId, txtStreetAddress, txtCity, txtState, txtZipCode);
                 return;
             }
@@ -70,11 +71,8 @@ public class AddMemberController {
                     memberId, firstName, lastName, phoneNumber, email, streetAddress, city, state, zipCode);
             System.out.println(memberIsRegistered);
             if(!memberIsRegistered){
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Member Exist");
-                alert.setHeaderText("This member is registered");
-                alert.setContentText("This member is already registered. They can't be added to the database");
-                alert.showAndWait();
+                CustomizeAlertMessages.showAlertInformationType("Member Exist", "This member is already registered",
+                        "This member has an account in our library. They can't be added.");
                 clearInputs(txtFirstName, txtLastName, txtMemberId, txtStreetAddress, txtCity, txtState, txtEmail, txtZipCode, txtPhone);
                 txtFirstName.clear();
                 txtLastName.clear();
@@ -89,11 +87,8 @@ public class AddMemberController {
 
             }
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Record Saved");
-            alert.setHeaderText("Member record saved");
-            alert.setContentText("Member record has been saved successfully");
-            alert.showAndWait();
+            CustomizeAlertMessages.showAlertInformationType("Record Saved", "Member record has been saved",
+                    "Member record has been saved successfully");
             clearInputs(txtFirstName, txtLastName, txtMemberId, txtStreetAddress,txtCity, txtState,txtEmail,txtZipCode, txtPhone);
 
         }
@@ -101,13 +96,14 @@ public class AddMemberController {
 
     }
 
+    // An event handler that handles cancel button. It closes the current opened window
     @FXML
     public void cancelSaving(){
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         stage.close();
     }
 
-
+    // Input validations method
     private boolean isValidData(){
         if(!Validator.validateFirstName(txtFirstName)){
             txtFirstName.clear();
@@ -189,6 +185,7 @@ public class AddMemberController {
         return true;
     }
 
+    // Clear inputs text that was entered
     private void clearInputs(TextInputControl control1, TextInputControl control2, TextInputControl control3,
                              TextInputControl control4, TextInputControl control5, TextInputControl control6,
                              TextInputControl control7, TextInputControl control8, TextInputControl control9)
@@ -204,7 +201,7 @@ public class AddMemberController {
         control9.clear();
     }
 
-
+// Sets Uis value in various inputs
     public void setUiValues(Member member){
         txtMemberId.setText(member.getMemberId());
         txtFirstName.setText(member.getFirstName());
@@ -215,7 +212,7 @@ public class AddMemberController {
         txtCity.setText(member.getCity());
         txtState.setText(member.getState());
         txtZipCode.setText(member.getZipCode());
-        streedId = member.getId();
+        streetId = member.getId();
         isUpdated = true;
 
 

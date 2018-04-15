@@ -2,7 +2,7 @@ package com.momo.settings;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import com.momo.Validator;
+import com.momo.utils.Validator;
 import com.momo.datamodel.LibrarySettings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

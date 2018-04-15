@@ -11,9 +11,6 @@
     <orderEntry type="library" name="mysql-connector-java-5.1.45-bin" level="project" />
     <orderEntry type="library" name="gson-2.8.2" level="project" />
     <orderEntry type="library" name="commons-codec-1.4" level="project" />
-    <orderEntry type="library" name="fontawesomefx-fontawesome-4.7.0-5" level="project" />
-    <orderEntry type="library" name="fontawesomefx-commons-8.15" level="project" />
-    <orderEntry type="library" name="fontawesomefx-weathericons-2.0.10-5" level="project" />
-    <orderEntry type="library" name="fontawesomefx-materialdesignfont-1.7.22-4" level="project" />
+    <orderEntry type="library" name="fontawesomefx-commons-8.151" level="project" />
   </component>
 </module>

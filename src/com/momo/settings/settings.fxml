@@ -10,8 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane fx:id="fineAnchorPane" prefHeight="308.0" prefWidth="337.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.momo.settings.SettingsController">
+<AnchorPane fx:id="fineAnchorPane" prefHeight="308.0" prefWidth="337.0" stylesheets="@../resources/css/styles.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.momo.settings.SettingsController">
    <children>
       <VBox layoutX="6.0" prefHeight="254.0" prefWidth="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -59,8 +58,8 @@
       </VBox>
       <HBox layoutX="-18.0" layoutY="293.0" prefHeight="43.0" prefWidth="337.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <JFXButton defaultButton="true" minHeight="40.0" onAction="#btnSave" prefHeight="46.0" prefWidth="340.0" stylesheets="@../addbooks/addBook.css" text="Save" />
-            <JFXButton cancelButton="true" layoutX="10.0" layoutY="10.0" minHeight="40.0" onAction="#btnCancel" prefHeight="47.0" prefWidth="350.0" stylesheets="@../addbooks/addBook.css" text="Cancel" />
+            <JFXButton defaultButton="true" minHeight="40.0" onAction="#btnSave" prefHeight="46.0" prefWidth="340.0" text="Save" />
+            <JFXButton cancelButton="true" layoutX="10.0" layoutY="10.0" minHeight="40.0" onAction="#btnCancel" prefHeight="47.0" prefWidth="350.0" text="Cancel" />
          </children>
       </HBox>
    </children>

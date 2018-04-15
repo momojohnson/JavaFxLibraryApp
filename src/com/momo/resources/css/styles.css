@@ -24,7 +24,7 @@
  }
 
  /* login styling starts here */
- .button{
+ .button-style{
      -fx-border-radius: 15px;
      -fx-border-color: -fx-third-color;
      -fx-background-radius: 15px;
@@ -32,7 +32,7 @@
 
  }
 
-.button:hover{
+.button-style:hover{
     -fx-background-color: -fx-third-color;
     -fx-border-radius: 15px;
     -fx-background-radius: 15px;
@@ -83,6 +83,7 @@
  /* Styling of toolbar */
  .toolbar-bottons{
      -fx-background-color: derive(-fx-mainwindowbackground-color, 20%);
+     -fx-font-size: 10px;
  }
 
  .toolbar-bottons:hover{
@@ -96,4 +97,12 @@
  .text{
      -fx-fill: -fx-secondary-color;
      -fx-font-size: 17px;
+ }
+
+ .style-dialog-fonts{
+     -fx-font-size: 30px;
+     -fx-font-weight: 700;
+     -fx-font-style: italic;
+     -fx-font-family: Bernard MT Condensed;
+
  }

@@ -1,16 +1,16 @@
 package com.momo.booksTable;
 
-import com.momo.utils.Utils;
 import com.momo.addbooks.AddBookController;
 import com.momo.datamodel.Book;
 import com.momo.datamodel.DataSource;
+import com.momo.utils.CustomizeAlertMessages;
+import com.momo.utils.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
@@ -24,8 +24,8 @@ import java.util.Optional;
 public class BookTableController {
 
     @FXML
-    private TableView<Book> bookTable;
-    private ObservableList<Book> books;
+    private TableView<Book> bookTable; // A table view for the books
+    private ObservableList<Book> books; // Observable list for books. It is used to set books items into book table view
 
     public void initialize(){
         books = FXCollections.observableArrayList(DataSource.getInstance().queryAllBooks());
@@ -34,77 +34,57 @@ public class BookTableController {
 
     }
 
+    // An event handler to perform deletion of books
     @FXML
     private void deleteBook(){
         Book book = bookTable.getSelectionModel().getSelectedItem();
         if(book == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Deletion Error");
-            alert.setHeaderText("You must select a book to delete");
-            alert.setContentText("Please make sure to select a book before clicking delete.");
-            alert.showAndWait();
+            CustomizeAlertMessages.showAlertErrorType("Deletion Error", "You must select a book to delete",
+                    "Please make sure to select a book before clicking delete");
             return;
         }
         boolean bookStatus = DataSource.getInstance().queryBookStatus(book.getBookIsbn());
         if(!bookStatus){
-            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-            alert1.setTitle("Book can't be deleted");
-            alert1.setHeaderText("This book was issued");
-            alert1.setContentText(String.format("You can't delete %s because it has been issued", book.getBookTitle()));
-            alert1.showAndWait();
+            CustomizeAlertMessages.showAlertInformationType("Book can't be deleted", "This book was issued",
+                    String.format("You can't delete %s because it has been issued", book.getBookTitle()));
             return;
         }
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete Confirmation");
-        alert.setHeaderText("Confirm delete operation");
-        alert.setContentText(String.format("Are you sure you want to delete %s with %s %s ", book.getBookTitle(), book.getAuthorFirstName(), book.getAuthorLastName()));
-        Optional<ButtonType> response = alert.showAndWait();
+        Optional<ButtonType> response = CustomizeAlertMessages.showAlertInformationType("Delete Confirmation", "Confirm delete operation",
+                String.format("Are you sure you want to delete %s with %s %s ", book.getBookTitle(), book.getAuthorFirstName(), book.getAuthorLastName()));
         if(response.get() == ButtonType.OK){
             String bookIsbn = book.getBookIsbn();
             int authorId = book.getAuthorId();
             boolean deleted = DataSource.getInstance().deleteBookAuthorAndAuthorIsbnRecord(bookIsbn, authorId);
             if(deleted) {
                 books.remove(book);
-                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                alert1.setTitle("Record Deleted");
-                alert1.setHeaderText("Record has been deleted");
-                alert1.setContentText(String.format("%s, with author %s %s has been deleted successfully", book.getBookTitle(), book.getAuthorFirstName(), book.getAuthorLastName()));
-                alert1.showAndWait();
+                CustomizeAlertMessages.showAlertInformationType("Record Deleted", "Record has been deleted",
+                        String.format("%s, with author %s %s has been deleted successfully", book.getBookTitle(), book.getAuthorFirstName(), book.getAuthorLastName()));
                 return;
             }
         }
-        Alert alertCancel= new Alert(Alert.AlertType.INFORMATION);
-        alertCancel.setTitle("Delete Operation cancelled");
-        alertCancel.setHeaderText("Delete operation was canceled");
-        alertCancel.setContentText("Deletion operation canceled.");
-        alertCancel.showAndWait();
+        CustomizeAlertMessages.showAlertInformationType("Delete operation canceled", "Delete operation has been canceled",
+                "Deletion operation has been aborted");
 
     }
-    @FXML
 
+    // An event handler to edit book when edit is clicked on the context menu
+    @FXML
     private void editBook(){
         Book book = bookTable.getSelectionModel().getSelectedItem();
         if(book == null){
-            Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
-            errorAlert.setTitle("Selection Error");
-            errorAlert.setHeaderText("You must select a book to edit");
-            errorAlert.setContentText("Please select a record perform an edit operation");
-            errorAlert.showAndWait();
+            CustomizeAlertMessages.showAlertInformationType("Selection Error", "You must select a book for editing",
+                    "Please select a record to perform an edit operation");
             return;
         }
-        Alert alertEditRecord = new Alert(Alert.AlertType.CONFIRMATION);
-        alertEditRecord.setTitle("Edit Book Record");
-        alertEditRecord.setHeaderText("Confirm edit book record.");
-        alertEditRecord.setContentText(String.format("Are you want to edit %s with author %s %s", book.getBookTitle(), book.getAuthorFirstName(), book.getAuthorLastName()));
-        Optional<ButtonType> response = alertEditRecord.showAndWait();
+        Optional<ButtonType> response = CustomizeAlertMessages.showAlertInformationType("Edit Book Record", "Confirm edit book record",
+                String.format("Are you want to edit %s with author %s %s", book.getBookTitle(), book.getAuthorFirstName(), book.getAuthorLastName()));
         if(response.get() == ButtonType.CANCEL){
-            Alert cancelEdit = new Alert(Alert.AlertType.INFORMATION);
-            cancelEdit.setTitle("Cancel Edit");
-            cancelEdit.setHeaderText("Cancel edit operation");
-            cancelEdit.setContentText("Edit operation has been canceled.");
-            cancelEdit.showAndWait();
+
+            CustomizeAlertMessages.showAlertInformationType("Canceled Edit", "You have canceled edit operation",
+                    "Edit operation for this record has been canceled");
             return;
         }
+        // Loads add book fxml
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/momo/addbooks/addBook.fxml"));
         try {
             Parent parent = loader.load();
@@ -125,13 +105,15 @@ public class BookTableController {
 
         }
     }
-
-    public void refreshBooks(){
+    // A method to refresh and populate data on the table from the database
+    private void refreshBooks(){
         books.clear();
         books = FXCollections.observableArrayList(DataSource.getInstance().queryAllBooks());
         bookTable.setItems(books);
 
     }
+
+    // An event handler that refreshes the table
     @FXML
     private void refreshTable(){
         books = FXCollections.observableArrayList(DataSource.getInstance().queryAllBooks());

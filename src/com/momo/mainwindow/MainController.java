@@ -1,13 +1,17 @@
 package com.momo.mainwindow;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.effects.JFXDepthManager;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
-import com.momo.Validator;
 import com.momo.datamodel.Book;
 import com.momo.datamodel.DataSource;
 import com.momo.datamodel.Issue;
 import com.momo.datamodel.Member;
+import com.momo.utils.CustomizeAlertMessages;
+import com.momo.utils.Validator;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,17 +19,13 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -34,66 +34,71 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.Optional;
 
 
 public class MainController {
     @FXML
-    private HBox bookInfo;
+    private HBox bookInfo;// An HBox that contains book information
     @FXML
-    private HBox memberInfo;
+    private HBox memberInfo; // An HBox that contains member information
     @FXML
-    private TextField bookISBN;
+    private TextField bookISBN; // Text Field to enter book Isbn number
     @FXML
-    private Text bookTitle;
+    private Text txtBookTitle; // Text property to display book title
     @FXML
-    private Text bookAuthor;
+    private Text txtAuthorFirstAndLastName; // Text property to display author first and last name
     @FXML
-    private Text bookAvailable;
+    private Text txtBookAvailability; // Text property to display book availability information
     @FXML
-    private TextField memberId;
+    private TextField memberId; // Text field for member id
     @FXML
-    private Text memberName;
+
+    private Text memberName; // Text property to show member name
     @FXML
-    private Text contactInfo;
+    private Text txtMemberEmailAndPhoneNumber; // Text property to show member email and phone number
     @FXML
-    private Text address;
+    private Text address; // Text property to show member address informaton
+
     @FXML
-    private Label errorLabel;
+    private JFXTextField bookIsbnNumber; // Book Isbn number Textfield
     @FXML
-    private JFXTextField bookIsbnNumber;
+    private ObservableList<String> displayBookIssueInfo; // An observable list to display book and member information within the book renewal tab
     @FXML
-    private ObservableList<String> displayBookIssueInfo;
+    private Text txtMemberFirstAndLastName; // Text property for member first and last name
     @FXML
-    private Text textMemeberName;
+    private Text textMemberInfo; // text property for member information
     @FXML
-    private Text textMemberInfo;
+    private Text textMemberAddress; // text property for member address
     @FXML
-    private Text textMemberAddress;
+    private Text txtBookAuthorName; // text property for book author name
     @FXML
-    private Text textBookAuthor;
+    private Text txtBookTitleHBox; // Text property to display book Title in HBok with the renewal tab session
     @FXML
-    private Text textBookName;
+    private Text txtBookPublisher; // Text property that displays book publisher information
     @FXML
-    private Text textBookPublisher;
+    private Text txtIssueDate; // Text property that displays issue date of a book to a member
     @FXML
-    private Text textIssueDate;
+    private Text txtDaysBookIsOut; // Text property that displays number of days a book is out
     @FXML
-    private Text textBookOutDays;
+    private Text txtLibraryFineAmount; // Text property and display Library fine amount
     @FXML
-    private Text textLiberaryFine;
+    private JFXButton btnBookRenew; // A book renew button
     @FXML
-    private JFXButton bookRenew;
+    private JFXButton btnBookReturn; // A book return button
     @FXML
-    private JFXButton bookReturn;
+    private JFXHamburger hamburger; // Hamburger icon
     @FXML
-    private JFXHamburger hamburger;
+    private JFXDrawer drawer; // Drawer for the hamburger
     @FXML
-    private JFXDrawer drawer;
+    private StackPane rootPane; // Main window of the application
     @FXML
-    private StackPane rootPane;
+    private HBox submissionData; // HBox the shows information before submission of a book is done.
     @FXML
-    private HBox submissionData;
+    private BorderPane borderPane; // Borderpane layout
+    @FXML
+    private JFXButton btnBookIssue; // issue button
 
 
     private DateTimeFormatter dateFormatter;
@@ -101,7 +106,7 @@ public class MainController {
 
     public void initialize() {
 
-        DataSource.getInstance().createLibraryTables();
+        DataSource.getInstance().createLibraryTables(); // Create all tables upon program initialization
         JFXDepthManager.setDepth(bookInfo, 1);
         JFXDepthManager.setDepth(memberInfo, 1);
         dateFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss a");
@@ -110,27 +115,31 @@ public class MainController {
     }
 
 
+    // Load book information
     @FXML
     private void loadBookInfo() {
-        errorLabel.setVisible(false);
-        bookTitle.setVisible(true);
         String bookIsbn = bookISBN.getText();
         Book bookInfo = DataSource.getInstance().getBookInfo(bookIsbn);
         if (bookInfo.getBookTitle() == null) {
-            bookTitle.setText(String.format("We don't have ISBN %s in our library", bookIsbn));
-            bookAuthor.setVisible(false);
-            bookAvailable.setVisible(false);
+            CustomizeAlertMessages.showMaterialDialog(rootPane, borderPane, "button-style", Arrays.asList(new JFXButton("Okay")),
+                    "ISBN number doesn't exist in our Library" );
+            txtAuthorFirstAndLastName.setVisible(false);
+            txtBookAvailability.setVisible(false);
+            btnBookIssue.setDisable(true);
             return;
         } else {
-            bookAuthor.setVisible(true);
-            bookAvailable.setVisible(true);
+            txtAuthorFirstAndLastName.setVisible(true);
+            txtBookAvailability.setVisible(true);
+            txtBookTitle.setVisible(true);
+            btnBookIssue.setDisable(false);
 
-            bookTitle.setText(bookInfo.getBookTitle());
-            bookAuthor.setText(String.format("%s %s", bookInfo.getAuthorFirstName(), bookInfo.getAuthorLastName()));
+            txtBookTitle.setText(bookInfo.getBookTitle());
+            txtAuthorFirstAndLastName.setText(String.format("%s %s", bookInfo.getAuthorFirstName(), bookInfo.getAuthorLastName()));
             if (bookInfo.isBookAvailability()) {
-                bookAvailable.setText(String.format("Available: %s", "Yes"));
+                txtBookAvailability.setText(String.format("Available: %s", "Yes"));
             } else {
-                bookAvailable.setText(String.format("Available: %s ", "No"));
+                txtBookAvailability.setText(String.format("Available: %s ", "No"));
+                btnBookIssue.setDisable(true);
 
             }
         }
@@ -138,69 +147,53 @@ public class MainController {
 
     }
 
+    // Load member information event method
     @FXML
     private void loadMemberInfo() {
-        errorLabel.setVisible(false);
-        memberName.setVisible(true);
-        String availableMeberId = memberId.getText();
-        Member memberInfo = DataSource.getInstance().getMemberInfo(availableMeberId);
+        String availableMemberId = memberId.getText();
+        Member memberInfo = DataSource.getInstance().getMemberInfo(availableMemberId);
 
         if (memberInfo.getFirstName() == null) {
-            memberName.setText("This member id isn't registered.");
-            contactInfo.setVisible(false);
+            CustomizeAlertMessages.showMaterialDialog(rootPane, borderPane, "button-style", Arrays.asList(new JFXButton("Okay")), "This member Id doesn't exist");
+            txtMemberEmailAndPhoneNumber.setVisible(false);
             address.setVisible(false);
+            memberName.setVisible(false);
+            btnBookIssue.setDisable(true);
             return;
         }
-        contactInfo.setVisible(true);
+        txtMemberEmailAndPhoneNumber.setVisible(true);
         address.setVisible(true);
+        btnBookIssue.setDisable(false);
         memberName.setText(String.format("%s %s", memberInfo.getFirstName(), memberInfo.getLastName()));
-        contactInfo.setText(String.format("%s | %s", memberInfo.getPhoneNumber(), memberInfo.getEmail()));
+        txtMemberEmailAndPhoneNumber.setText(String.format("%s | %s", memberInfo.getPhoneNumber(), memberInfo.getEmail()));
         address.setText(String.format("%s", memberInfo.getStreetAddress()));
-
+        memberName.setVisible(true);
     }
 
+    // Issue a book event
     @FXML
     private void issueBook() {
         if (validateInputs()) {
             String availableMember = memberId.getText();
             System.out.println(availableMember);
             String bookIsnNumber = bookISBN.getText();
-
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirm Issue");
-            alert.setHeaderText("Please confirm issue of book");
-            alert.setContentText(String.format("Are you sure you to issue %s to %s", bookTitle.getText(), memberName.getText()));
-
-
-            Optional<ButtonType> response = alert.showAndWait();
+            Optional<ButtonType> response = CustomizeAlertMessages.showAlertInformationType("Confirmed Issue", "Please confirm issue book request", String.format("Are you sure you to issue %s to %s", txtBookTitle.getText(), memberName.getText()));
             if (response.get() == ButtonType.OK) {
                 boolean bookStatus = DataSource.getInstance().queryBookStatus(bookIsnNumber);
                 if (bookStatus) {
                     DataSource.getInstance().insertIntoIssueTable(bookIsnNumber, availableMember);
                     DataSource.getInstance().bookIssueAndReturn(bookIsnNumber, false);
-                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                    alert1.setTitle("Book Issue Successful");
-                    alert1.setHeaderText("Book has been issued successfully");
-                    alert1.setContentText(String.format("%s was issued to %s on %s", bookTitle.getText(), memberName.getText(),
-                            dateFormatter.format(LocalDateTime.now()).toString()));
-                    alert1.showAndWait();
+                    CustomizeAlertMessages.showAlertInformationType("Book Issue Successful", "Book has been issued successfully",
+                            String.format("%s was issued to %s on %s", txtBookTitle.getText(), memberName.getText(),
+                                    dateFormatter.format(LocalDateTime.now()).toString()));
                     return;
                 } else {
-                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                    alert1.setTitle("Book has been issued");
-                    alert1.setHeaderText("This book has already been issued");
-                    alert1.setContentText(String.format("%s was issued ", bookTitle.getText()));
-                    alert1.showAndWait();
+                    CustomizeAlertMessages.showAlertInformationType("Book has been issued", "This book has already been issued", String.format("%s was issued ", txtBookTitle.getText()));
                     return;
                 }
 
             }
-
-            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-            alert1.setTitle("Issue Operation canceled");
-            alert1.setHeaderText("You canceled the issue operation");
-            alert1.setContentText("No changes will be saved; you aborted issue operation");
-            alert1.showAndWait();
+            CustomizeAlertMessages.showAlertInformationType("Issue Operation canceled", "You canceled the issue operation", "No changes will be saved; you have aborted issue operation");
 
         }
 
@@ -208,113 +201,108 @@ public class MainController {
     }
 
 
+    // Load book info event method two
     @FXML
     private void loadBookInfoTwo() {
         if (!validateIsbn()) {
-            disableDialogControls("Please enter a valid Isbn Number");
+            CustomizeAlertMessages.showMaterialDialog(rootPane, borderPane, "button-style", Arrays.asList(new JFXButton("Okay")),
+                    "Please enter a valid Isbn number");
+            disableControls(false);
+
             return;
         }
 
         Book bookInfo = DataSource.getInstance().getBookInfo(bookIsbnNumber.getText());
         Issue issueBook = DataSource.getInstance().issueInfo(bookIsbnNumber.getText());
         if (issueBook.getDateTime() == null) {
-            disableDialogControls("This book hasn't been issued");
+            CustomizeAlertMessages.showMaterialDialog(rootPane, borderPane, "button-style", Arrays.asList(new JFXButton("Okay")),
+                    "This book hasn't been issued");
+            disableControls(true);
 
             return;
         }
         enableDialogControls();
         Member member = DataSource.getInstance().getMemberInfo(issueBook.getMemberId());
-        textMemeberName.setText(String.format("%s %s", member.getFirstName(), member.getLastName()));
+        txtMemberFirstAndLastName.setText(String.format("%s %s", member.getFirstName(), member.getLastName()));
         textMemberAddress.setText(String.format("%s", member.getStreetAddress()));
         textMemberInfo.setText(String.format("%s | %s", member.getEmail(), member.getPhoneNumber()));
         displayBookIssueInfo.add("Book Information");
-        textBookName.setText(String.format("%s", bookInfo.getBookTitle()));
-        textBookAuthor.setText(String.format("%s %s", bookInfo.getAuthorFirstName(), bookInfo.getAuthorLastName()));
-        textBookPublisher.setText(String.format("%s", bookInfo.getBookPublisher()));
-        textIssueDate.setText(String.format("Issue date and Time: %s ", dateFormatter.format(issueBook.getDateTime())));
+        txtBookTitleHBox.setText(String.format("%s", bookInfo.getBookTitle()));
+        txtBookAuthorName.setText(String.format("%s %s", bookInfo.getAuthorFirstName(), bookInfo.getAuthorLastName()));
+        txtBookPublisher.setText(String.format("%s", bookInfo.getBookPublisher()));
+        txtIssueDate.setText(String.format("Issue date and Time: %s ", dateFormatter.format(issueBook.getDateTime())));
         LocalDate date = issueBook.getDateTime().toLocalDate();
         LocalDate date1 = LocalDateTime.now().toLocalDate();
         Long elapsedDays = ChronoUnit.DAYS.between(date, date1);
-        textBookOutDays.setText(String.format("%d", elapsedDays));
+        txtDaysBookIsOut.setText(String.format("%d", elapsedDays));
 
     }
 
+    // Return book event method upon return button clicked
     @FXML
     private void returnBook() {
         if (!validateIsbn()) {
-            disableDialogControls("Please enter a valid isbn Number");
+            CustomizeAlertMessages.showMaterialDialog(rootPane, borderPane, "button-style", Arrays.asList(new JFXButton("Okay")),
+                    "Please enter a valid isbn number");
             return;
         }
         String bookIsbn = bookIsbnNumber.getText();
         boolean bookStatus = DataSource.getInstance().queryBookStatus(bookIsbn);
         if (bookStatus) {
-            disableDialogControls("This book has been returned");
+            CustomizeAlertMessages.showMaterialDialog(rootPane, borderPane, "button-style", Arrays.asList(new JFXButton("Okay")),
+                    "This book has been returned");
             return;
 
         }
-        Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
-        alert1.setTitle("Return Confirmation");
-        alert1.setHeaderText("Confirm return operation");
-        alert1.setContentText(String.format("Are you sure you want to return the book %s ?", textBookName.getText()));
-        Optional<ButtonType> confirm = alert1.showAndWait();
+        Optional<ButtonType> confirm = CustomizeAlertMessages.showAlertInformationType("Return Confirmation", "Confirm return operation",
+                String.format("Are you sure you want to return the book %s ?", txtBookTitleHBox.getText()));
         if (confirm.get() == ButtonType.OK) {
             DataSource.getInstance().bookIssueAndReturn(bookIsbn, true);
             DataSource.getInstance().deleteRecordFromIssuesTable(bookIsbn);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Book return successful");
-            alert.setHeaderText("Book return operation successful");
-            alert.setContentText("The book was successfully return. Thanks you using our library");
-            clearInputs();
-            alert.showAndWait();
+            CustomizeAlertMessages.showAlertInformationType("Book Return Successful", "Book return operation successful",
+                    "The book has been return successfully. Thanks you for using our library");
             return;
         }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Return canceled");
-        alert.setHeaderText("You canceled the return.");
-        alert.setContentText("You have canceled the return operation. The book wasn't returned");
-        alert.showAndWait();
-
+        CustomizeAlertMessages.showAlertInformationType("Returned Book Canceled", "You have canceled the return book operation",
+                "You have canceled the book return operation. The book wasn't returned");
     }
 
+    // Renewal book event method upon renew button clicked
     @FXML
     private void renewBook() {
         if (!validateIsbn()) {
-            disableDialogControls("Please enter a valid isbn Number");
+            CustomizeAlertMessages.showMaterialDialog(rootPane, borderPane, "button-style", Arrays.asList(new JFXButton("Okay")),
+                    "Please enter a valid isbn number");
 
             return;
         }
         boolean bookStatus = DataSource.getInstance().queryBookStatus(bookIsbnNumber.getText());
         if (!bookStatus) {
             enableDialogControls();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirm Renewal");
-            alert.setHeaderText("Please confirm renewal");
-            alert.setContentText("Are you sure you want to confirm renewal of this book?");
-            Optional<ButtonType> response = alert.showAndWait();
+            Optional<ButtonType> response = CustomizeAlertMessages.showAlertInformationType("Confirm Renewal", "Please confirm renewal",
+                    "Are you sure you want to confirm renewal of this book?");
             if (response.get() == ButtonType.OK) {
                 DataSource.getInstance().updateBookRenewal(bookIsbnNumber.getText());
-                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                alert1.setTitle("Book Renewed");
-                alert1.setHeaderText("Book has been renewed");
-                alert1.setContentText("You request for book renewal has been process successfully");
+                CustomizeAlertMessages.showAlertInformationType("Book Renewal", "Book has been renewed",
+                        "Your request for the book renewal has been process successfully");
                 clearInputs();
-                alert1.showAndWait();
                 return;
             }
-            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-            alert2.setTitle("Book Renewal Canceled");
-            alert2.setHeaderText("Book Renewal has been canceled");
-            alert2.setContentText("The book renewal operation has been canceled");
-            alert2.showAndWait();
+            CustomizeAlertMessages.showAlertInformationType("Book Renewal Canceled", "Book renewal has been canceled",
+                    "The book renewal operation has been canceled");
+
 
         } else {
 
-            disableDialogControls("You can't renewed this book because it has been issued.");
+            CustomizeAlertMessages.showMaterialDialog(rootPane, borderPane, "button-style", Arrays.asList(new JFXButton("Okay")),
+                    "You can't renewed this book because it has been issued to another member.");
+
 
 
         }
     }
 
+    // Validates book Isbn number
     private boolean validateIsbn() {
         if (!Validator.bookIsbn(bookIsbnNumber)) {
             return false;
@@ -323,41 +311,36 @@ public class MainController {
     }
 
 
+    // Clears bookIsbn inputs
     private boolean validateInputs() {
-        errorLabel.setVisible(true);
-        bookTitle.setVisible(false);
-        memberName.setVisible(false);
         if (!Validator.bookIsbn(bookISBN)) {
-            errorLabel.setText("Please enter a valid book ISBN Number");
-            errorLabel.setFont(Font.font("Time News Roman", FontWeight.BOLD, 14));
-            errorLabel.setTextFill(Color.RED);
+            CustomizeAlertMessages.showMaterialDialog(rootPane, borderPane, "button-style", Arrays.asList(new JFXButton("Okay")),
+                    "Please enter a valid book Isbn number." );
             return false;
         }
         if (!Validator.validateMemberId(memberId)) {
-            errorLabel.setText("Please enter valid member Id");
-            errorLabel.setFont(Font.font("Time News Roman", FontWeight.BOLD, 14));
-            errorLabel.setTextFill(Color.RED);
-            bookTitle.setVisible(true);
+            CustomizeAlertMessages.showMaterialDialog(rootPane, borderPane, "button-style", Arrays.asList(new JFXButton("Okay")), "Please enter valid member Id");
 
             return false;
         }
-        errorLabel.setVisible(false);
-        bookTitle.setVisible(true);
-        memberName.setVisible(false);
+
         return true;
     }
 
+    // Close the main window when the close on the window menu is clicked
     @FXML
     private void menuClose() {
         Platform.exit();
     }
 
+    // Make a the window to be a full screen
     @FXML
     private void loadFullScreen() {
         Stage stage = (Stage) bookISBN.getScene().getWindow();
         stage.setFullScreen(!stage.isFullScreen());
     }
 
+    // Loads the toolbar on the right of the hamburger when the hamburger is clicked.
     public void loadToolBar() {
         try {
             VBox loader = FXMLLoader.load(getClass().getResource("/com/momo/toolbar/toolbar.fxml"));
@@ -386,50 +369,33 @@ public class MainController {
 
     }
 
+        // Clears Uis inputs
     private void clearInputs(){
-        textBookOutDays.setText("No. of Days Book Out");
-        textLiberaryFine.setText("Total Fine Amount");
-        textIssueDate.setText("Date Issue");
-        textBookPublisher.setText("Book Publisher");
-        textBookAuthor.setText("Book Author");
-        textBookName.setText("Book Title");
+        txtDaysBookIsOut.setText("No. of Days Book Out");
+        txtLibraryFineAmount.setText("Total Fine Amount");
+        txtIssueDate.setText("Date Issue");
+        txtBookPublisher.setText("Book Publisher");
+        txtBookAuthorName.setText("Book Author");
+        txtBookTitleHBox.setText("Book Title");
         textMemberInfo.setText("Contact Info");
         textMemberAddress.setText("Address");
-        textMemeberName.setText("Member Name");
+        txtMemberFirstAndLastName.setText("Member Name");
     }
-
+    // Disable controls when the input enter isn't valid
     private void disableControls(boolean isEnable){
         if(!isEnable){
-            bookRenew.setDisable(true);
-            bookReturn.setDisable(true);
+            btnBookRenew.setDisable(true);
+            btnBookReturn.setDisable(true);
+            submissionData.setOpacity(0);
         }else {
-            bookReturn.setDisable(false);
-            bookRenew.setDisable(false);
+            btnBookReturn.setDisable(false);
+            btnBookRenew.setDisable(false);
+
+
         }
     }
 
-    private void disableDialogControls(String text){
-        JFXButton button = new JFXButton("Ok");
-        JFXDialogLayout layout = new JFXDialogLayout();
-        JFXDialog dialog = new JFXDialog(rootPane, layout, JFXDialog.DialogTransition.TOP);
-
-        button.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> {
-
-            dialog.close();
-
-        });
-        Label label = new Label(text);
-        label.setFont(Font.font("Bernard MT Condensed", FontWeight.BOLD, 14));
-        label.setStyle("-fx-text-fill: black");
-        layout.setBody(label);
-
-        layout.setActions(button);
-        dialog.show();
-        clearInputs();
-        disableControls(false);
-        bookIsbnNumber.setText("");
-        submissionData.setOpacity(0);
-    }
+    // Enable dialog controls
     private void enableDialogControls(){
         submissionData.setOpacity(1);
         disableControls(true);

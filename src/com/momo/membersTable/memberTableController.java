@@ -1,16 +1,16 @@
 package com.momo.membersTable;
 
-import com.momo.utils.Utils;
 import com.momo.addmembers.AddMemberController;
 import com.momo.datamodel.DataSource;
 import com.momo.datamodel.Member;
+import com.momo.utils.CustomizeAlertMessages;
+import com.momo.utils.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
@@ -23,48 +23,39 @@ import java.util.Optional;
 public class memberTableController {
 
     @FXML
-    private TableView<Member> memberTable;
-    private ObservableList<Member> memberInfoList;
+    private TableView<Member> memberTable; // Table view for members
+    private ObservableList<Member> memberInfoList; // Observable list for members
     public void  initialize(){
         memberInfoList = FXCollections.observableArrayList(DataSource.getInstance().queryAllMembers());
         memberTable.setItems(memberInfoList);
     }
 
+    // An event handler that handles deletion of a member
     @FXML
     private void deleteMember(){
 
         Member member =  memberTable.getSelectionModel().getSelectedItem();
         if(member == null){
-            Alert alertNull= new Alert(Alert.AlertType.ERROR);
-            alertNull.setTitle("Deletion Error");
-            alertNull.setHeaderText("Deletion Error");
-            alertNull.setContentText("Please select a record in order to perform deletion");
-            alertNull.showAndWait();
+            CustomizeAlertMessages.showAlertInformationType("Deletion Error", "Couldn't Delete Member",
+                    "Please select a record to perform deletion");
            return;
         }
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirm deletion operation");
-        alert.setHeaderText("Confirm delete operation");
-        alert.setContentText(String.format("Are you sure you want to delete %s %s?", member.getFirstName(), member.getLastName()));
-        Optional<ButtonType> response = alert.showAndWait();
+        Optional<ButtonType> response = CustomizeAlertMessages.showAlertConfirmationType("Confirm Deletion Operation",
+                "Confirm Delete Operation", String.format("Are you sure you want to delete %s %s?", member.getFirstName(), member.getLastName()));
         if(response.get() == ButtonType.OK){
             boolean deleted = DataSource.getInstance().deleteMemberRecord(member.getMemberId());
             if(deleted){
                 memberInfoList.remove(member);
-                Alert alertDelete = new Alert(Alert.AlertType.INFORMATION);
-                alertDelete.setTitle("Record Deleted");
-                alertDelete.setHeaderText(String.format("%s %s has been deleted successfully", member.getFirstName(), member.getLastName()));
-                alertDelete.showAndWait();
+                CustomizeAlertMessages.showAlertInformationType("Record Deleted", "Record has been deleted",
+                        String.format("%s %s has been deleted successfully", member.getFirstName(), member.getLastName()));
                 return;
             }
         }
-        Alert alertCancel = new Alert(Alert.AlertType.INFORMATION);
-        alertCancel.setTitle("Deletion Operation canceled");
-        alertCancel.setHeaderText("Deletion operation has been canceled");
-        alertCancel.setContentText("Deletion of record was canceled");
-        alertCancel.showAndWait();
+        CustomizeAlertMessages.showAlertInformationType("Deletion Operation Canceled", "Deletion operation has been canceled",
+                "Deletion process was aborted");
     }
 
+    // An event handler to handles editing of a member
     @FXML
     private void editMember(){
         try{
@@ -92,6 +83,7 @@ public class memberTableController {
         }
 
     }
+    // A method to refresh member table
     @FXML
     public void refreshTable(){
         memberInfoList.clear();

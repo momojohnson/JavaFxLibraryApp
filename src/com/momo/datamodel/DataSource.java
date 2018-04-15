@@ -45,7 +45,7 @@ public class DataSource {
     private PreparedStatement updateMemberRecord; // prepared statement to update member record
     private PreparedStatement updateAddressRecord; // prepared statement to update an address record
 
-    // Table name for author table in our Library database
+    // Column names for author table
     public static final String AUTHOR_TABLE = "authors";
     public static final String COLUMN_AUTHOR_AUTHOR_ID = "authorId";
     public static final String COLUMN_AUTHOR_FIRST_NAME = "firstName";
@@ -56,21 +56,20 @@ public class DataSource {
     public static final String COLUMN_AUTHOR_STATE = "authorState";
 
 
-    // Table name for issuing book in our Library database
+    // Column names for issue table
     public static final String ISSUE_TABLE = "issues";
     public static final String COLUMN_ISSUE_TIME_ISSUE = "timeIssue";
     public static final String COLUMN_ISSUE_RENEWAL_COUNT = "renewalCount";
 
-    // Table names for Library members table
+    // Column names for  members table
     public static final String MEMBERS_TABLE = "members";
     public static final String COLUMN_MEMBER_FIRST_NAME = "firstName";
     public static final String COLUMN_MEMBER_LAST_NAME = "lastName";
     public static final String COLUMN_MEMBER_MEMBER_ID = "memberId";
-
     public static final String COLUMN_MEMBER_PHONE_NUMBER = "phoneNumber";
     public static final String COLUMN_MEMBER_EMAIL = "email";
 
-
+    // Column names for address table
     public static final String ADDRESS_TABLE = "address";
     public static final String COLUMN_ADDRESS_ID = "id";
     public static final String COLUMN_ADDRESS_STREET_ADDRESS = "streetAddress";
@@ -78,7 +77,15 @@ public class DataSource {
     public static final String COLUMN_ADDRESS_STATE = "state";
     public static final String COLUMN_ADDRESS_ZIP_CODE = "zipCode";
 
-    // Index for querying book info
+    //Column names for book table
+    public static final String BOOK_TABLE = "Books";
+    public static final String COLUMN_BOOK_ISBN = "isbn";
+    public static final String COLUMN_BOOK_BOOK_TITLE = "bookTitle";
+    public static final String COLUMN_BOOK_PUBLISHER = "publisher";
+    public static final String COLUMN_BOOK_COPYRIGHT = "copyRight";
+    public static final String COLUMN_BOOK_EDITION = "editionNumber";
+
+    // Column indexes for querying book and member table
     public static final int INDEX_AUTHOR_ID = 1;
     public static final int INDEX_AUTHOR_FIRST_NAME = 2;
     public static final int INDEX_AUTHOR_LAST_NAME = 3;
@@ -94,7 +101,7 @@ public class DataSource {
 
 
 
-    //Index for querying all members query
+    //Column indexes for querying all members table
     public static final int INDEX_MEMBER_ID = 1;
     public static final int INDEX_MEMBER_FIRST_NAME = 2;
     public static final int INDEX_MEMBER_LAST_NAME = 3;
@@ -106,15 +113,9 @@ public class DataSource {
     public static final int INDEX_MEMBER_STATE = 9;
     public static final int INDEX_MEMBER_ZIPCODE = 10;
 
-    //Table name for book table in our Library database
-    public static final String BOOK_TABLE = "Books";
-    public static final String COLUMN_BOOK_ISBN = "isbn";
-    public static final String COLUMN_BOOK_BOOK_TITLE = "bookTitle";
-    public static final String COLUMN_BOOK_PUBLISHER = "publisher";
-    public static final String COLUMN_BOOK_COPYRIGHT = "copyRight";
-    public static final String COLUMN_BOOK_EDITION = "editionNumber";
 
-    //Table authors and isbn table in our Library datatbase
+
+    //Table name for author isbn table
     public static final String AUTHOR_ISBN_TABLE = "authorIsbn";
 
     // Database to be used for this application
@@ -171,7 +172,7 @@ public class DataSource {
             + "CONSTRAINT "+ "FK_authorId FOREIGN KEY "+ " ( "+ COLUMN_AUTHOR_AUTHOR_ID+ " ) REFERENCES "
             + AUTHOR_TABLE + "("+COLUMN_AUTHOR_AUTHOR_ID + ") ON DELETE CASCADE ON UPDATE CASCADE"
             + ")";
-
+    // SQL statement to create Membe Table
     public static final String CREATE_TABLE_MEMBERS = " CREATE TABLE IF NOT EXISTS "+ MEMBERS_TABLE +
             " ( "
             +"  memberId VARCHAR(15) NOT NULL PRIMARY KEY, "
@@ -181,6 +182,7 @@ public class DataSource {
             +"  email VARCHAR(225) NOT NULL, "
             +" UNIQUE(memberId)"
             + " ) ";
+    // SQL statement to create Address  Table
     public static final String CREATE_ADDRESS_TABLE = " CREATE TABLE IF NOT EXISTS "+ ADDRESS_TABLE +
             " ( "
             +"  id INT NOT NULL AUTO_INCREMENT, "
@@ -193,6 +195,8 @@ public class DataSource {
             +"  CONSTRAINT "+ " FK_memberId FOREIGN KEY " + " ( " + COLUMN_MEMBER_MEMBER_ID + " ) " + " REFERENCES "
             + MEMBERS_TABLE + " ( " + COLUMN_MEMBER_MEMBER_ID + " ) ON DELETE CASCADE ON UPDATE CASCADE "
             + " ) ";
+
+    // SQL statement to create  Issue Table
     public static final String CREATE_ISSUE_TABLE = " CREATE TABLE IF NOT EXISTS " + ISSUE_TABLE +
             " ( "
             +"  id INT NOT NULL AUTO_INCREMENT, "
@@ -247,7 +251,6 @@ public class DataSource {
             " WHERE " + COLUMN_MEMBER_MEMBER_ID + " = ? ";
 
     // Update address record
-
     public static final String UPDATE_ADDRESS_RECORD = " UPDATE " + ADDRESS_TABLE + " SET " + COLUMN_ADDRESS_STREET_ADDRESS + " = ? ," +
         COLUMN_ADDRESS_CITY + " = ? ," + COLUMN_ADDRESS_STATE + " = ? ," + COLUMN_ADDRESS_ZIP_CODE + " = ? " +
         " WHERE " + COLUMN_ADDRESS_ID + " = ? ";
@@ -279,7 +282,6 @@ public class DataSource {
             " WHERE "+ COLUMN_BOOK_ISBN + " = ? ";
 
     //Query FirstName, LastName, BookTitle, Publisher, ISBN, Edition, Availability from the database to be used book list table
-
      public static final String QUERY_ALL_BOOKS = " SELECT "+ AUTHOR_TABLE+ "."+ COLUMN_AUTHOR_AUTHOR_ID + ", "+ AUTHOR_TABLE+"."+COLUMN_AUTHOR_FIRST_NAME+", "+AUTHOR_TABLE+"."+
             COLUMN_AUTHOR_LAST_NAME+", " + AUTHOR_TABLE + "." + COLUMN_AUTHOR_DATE_OF_BIRTH + ", " + AUTHOR_TABLE + "." + COLUMN_AUTHOR_CITY + ", " +
             AUTHOR_TABLE + "." + COLUMN_AUTHOR_STATE + "," +  BOOK_TABLE + "." + COLUMN_BOOK_BOOK_TITLE + ", "+ BOOK_TABLE + "."+ COLUMN_BOOK_PUBLISHER + ", "+ BOOK_TABLE + "."+ COLUMN_BOOK_ISBN + ", "+ BOOK_TABLE + "." + COLUMN_BOOK_EDITION + ", " + BOOK_TABLE + "." + COLUMN_IS_BOOK_AVAILABLE + ", "+
@@ -562,7 +564,6 @@ public class DataSource {
     // Insert record into the members table
     private String insertRecordIntoMemberTable(String memberId, String firstName, String lastName,
                                                String phoneNumber, String email) throws SQLException{
-
             insertIntoMemberTable.setString(1, memberId);
             insertIntoMemberTable.setString(2, firstName);
             insertIntoMemberTable.setString(3, lastName);
@@ -574,7 +575,7 @@ public class DataSource {
 
     }
 
-
+    // Insert records into member and address table
     public boolean insertRecordIntoMemberAndAddressTable(String memberId, String firstName, String lastName, String phoneNumber,
                                                          String email, String streetAddress, String city, String state, String zipCode)
     {
@@ -617,9 +618,8 @@ public class DataSource {
        return true;
 
     }
-
-        // Insert data into the author's table
-        public int insertRecordIntoAuthorTable(String firstName, String lastName, Date birthDate, String authorCity, String authorState) throws SQLException {
+    // Insert records into the author's table
+    public int insertRecordIntoAuthorTable(String firstName, String lastName, Date birthDate, String authorCity, String authorState) throws SQLException {
 
             insertIntoAuthors.setString(1, firstName);
             insertIntoAuthors.setString(2, lastName);
@@ -709,7 +709,7 @@ public class DataSource {
                 ex.printStackTrace();
             }
         }
-            // If insertion of data is successful, return true
+        // If insertion of data is successful, return true
         return true;
         }
 

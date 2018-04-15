@@ -10,7 +10,7 @@ public class LibrarySettings {
     private double finePerDay; // fine per day variable
     private String username; // default username upon program load
     private String password; // default password upon program load
-    public static final String CONFIG_FILE = "config.txt";
+    public static final String CONFIG_FILE = "config.txt"; // config file name
 
     public LibrarySettings() {
         this.numOfDayWithoutFine = 21;
@@ -103,6 +103,8 @@ public class LibrarySettings {
 
         }
     }
+
+    // A method to create a config file  when application starts
     public static void createConfigFile(){
         File file = new File(CONFIG_FILE);
         if(!file.exists() && !file.isDirectory()){

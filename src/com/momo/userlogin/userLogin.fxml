@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -20,8 +21,16 @@
             <Font size="17.0" />
          </font>
       </JFXPasswordField>
-      <JFXButton defaultButton="true" layoutX="18.0" layoutY="299.0" onAction="#loginUser" prefHeight="38.0" prefWidth="148.0" styleClass="login-button" text="Login" />
-      <JFXButton cancelButton="true" layoutX="177.0" layoutY="299.0" onAction="#cancelLogin" prefHeight="38.0" prefWidth="148.0" styleClass="login-button" text="Cancel" />
+      <JFXButton defaultButton="true" layoutX="18.0" layoutY="299.0" onAction="#loginUser" prefHeight="38.0" prefWidth="148.0" text="Login">
+         <styleClass>
+            <String fx:value="login-button" />
+            <String fx:value="button-style" />
+         </styleClass></JFXButton>
+      <JFXButton cancelButton="true" layoutX="177.0" layoutY="299.0" onAction="#cancelLogin" prefHeight="38.0" prefWidth="148.0" text="Cancel">
+         <styleClass>
+            <String fx:value="login-button" />
+            <String fx:value="button-style" />
+         </styleClass></JFXButton>
       <Text fx:id="lblError" layoutX="34.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" wrappingWidth="295.0000062286854">
          <font>
             <Font size="15.0" />

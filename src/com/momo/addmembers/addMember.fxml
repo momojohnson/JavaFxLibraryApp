@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="475.0" prefWidth="403.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.momo.addmembers.AddMemberController">
+<AnchorPane fx:id="anchorPane" prefHeight="475.0" prefWidth="403.0" stylesheets="@../resources/css/styles.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.momo.addmembers.AddMemberController">
    <children>
       <VBox layoutX="8.0" prefHeight="400" prefWidth="388.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -114,7 +114,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXButton fx:id="btnSave" defaultButton="true" onAction="#addMember" prefHeight="43.0" prefWidth="236.0" stylesheets="@../addbooks/addBook.css" text="Save">
+            <JFXButton fx:id="btnSave" defaultButton="true" onAction="#addMember" prefHeight="43.0" prefWidth="236.0" styleClass="button-style" text="Save">
                <font>
                   <Font size="18.0" />
                </font>
@@ -133,8 +133,11 @@
                </graphic>
             </JFXButton>
          </children>
+         <opaqueInsets>
+            <Insets bottom="5.0" />
+         </opaqueInsets>
       </GridPane>
-      <GridPane layoutX="198.0" layoutY="509.0" prefHeight="43.0" prefWidth="205.0">
+      <GridPane layoutX="198.0" layoutY="509.0" prefHeight="43.0" prefWidth="205.0" styleClass="button-style">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
          </columnConstraints>
@@ -142,7 +145,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXButton cancelButton="true" onAction="#cancelSaving" prefHeight="68.0" prefWidth="234.0" stylesheets="@../addbooks/addBook.css" text="Cancel">
+            <JFXButton cancelButton="true" onAction="#cancelSaving" prefHeight="68.0" prefWidth="234.0" styleClass="button-style" text="Cancel">
                <font>
                   <Font size="18.0" />
                </font>
@@ -158,6 +161,9 @@
                </graphic>
             </JFXButton>
          </children>
+         <opaqueInsets>
+            <Insets bottom="5.0" />
+         </opaqueInsets>
       </GridPane>
    </children>
 </AnchorPane>

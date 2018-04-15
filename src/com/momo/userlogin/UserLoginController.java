@@ -2,15 +2,14 @@ package com.momo.userlogin;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import com.momo.utils.Utils;
-import com.momo.Validator;
 import com.momo.datamodel.LibrarySettings;
+import com.momo.utils.Utils;
+import com.momo.utils.Validator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -28,8 +27,7 @@ public class UserLoginController {
     private JFXTextField txtUsername;
     @FXML
     private JFXPasswordField txtPassword;
-    @FXML
-    private Label lblUserLogin;
+
     @FXML
     private Text lblError;
 
@@ -41,6 +39,7 @@ public class UserLoginController {
     }
 
 
+    // Event handler to login a user
     @FXML
     private void loginUser(){
         if(validateInput()){
@@ -57,12 +56,13 @@ public class UserLoginController {
             }
         }
     }
-
+    // Closes  the login screen when the user clicked the cancel button
     @FXML
     private void cancelLogin(){
         Platform.exit();
     }
 
+    // Validates user input
     private boolean validateInput(){
         if(!Validator.isValidData(txtUsername)){
             lblError.setVisible(true);
@@ -83,6 +83,7 @@ public class UserLoginController {
         return true;
     }
 
+    // A method use to load program main window
     private void loadMainProgramWindow(String location, String title, int width, int height){
         try {
             Parent windowParent = FXMLLoader.load(getClass().getResource(location));
@@ -98,6 +99,7 @@ public class UserLoginController {
         }
     }
 
+    // A method that is use to close the current window
     private void closeCurrentWindow(){
         Stage stage = (Stage) txtPassword.getScene().getWindow();
         stage.close();

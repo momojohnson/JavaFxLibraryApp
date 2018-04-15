@@ -4,14 +4,14 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="500.0" prefWidth="151.0" stylesheets="@../resources/css/styles.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.momo.toolbar.ToolBarController">
+<VBox prefHeight="500.0" prefWidth="134.0" stylesheets="@../resources/css/styles.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.momo.toolbar.ToolBarController">
    <children>
-      <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#addMember" prefHeight="400.0" prefWidth="150.0" styleClass="toolbar-bottons" text="Add Member">
+      <JFXButton accessibleRole="IMAGE_VIEW" contentDisplay="TOP" mnemonicParsing="false" onAction="#addMember" prefHeight="400.0" prefWidth="150.0" styleClass="toolbar-bottons" text="Add Member">
          <graphic>
-            <FontAwesomeIconView glyphName="USER_PLUS" size="50" />
+            <FontAwesomeIconView glyphName="USER_PLUS" onDragDetected="#addMember" size="50" />
          </graphic>
       </JFXButton>
-      <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewMembers" prefHeight="400.0" prefWidth="150.0" text="View Members">
+      <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewMembers" prefHeight="400.0" prefWidth="150.0" styleClass="toolbar-bottons" text="View Members">
          <graphic>
             <FontAwesomeIconView glyphName="LIST" size="50" />
          </graphic>
