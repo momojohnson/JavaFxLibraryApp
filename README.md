@@ -48,7 +48,7 @@
 ![image](https://user-images.githubusercontent.com/29076661/38784108-9db64f00-40d2-11e8-927e-d27fa1097ba4.png)
 ### Setting window
 ![image](https://user-images.githubusercontent.com/29076661/38784117-d8dd1aa0-40d2-11e8-9175-dd1f6639d07c.png)
-### Reneal/Return tab
+### Renewal/Return tab
 ![image](https://user-images.githubusercontent.com/29076661/38784123-06d5a170-40d3-11e8-8585-f72a5af92aa3.png)
 ### Enter the book isbn you wish to return or renew in the book isbn text field. Press enter to display the member who has the book and the book information. If the information enter isn't valid you will get an error message like shown below. The renewal and return buttons will be deactivated
 ![image](https://user-images.githubusercontent.com/29076661/38784150-7aecd9fc-40d3-11e8-8bc1-3c35636703bc.png)
@@ -56,7 +56,6 @@
 ![image](https://user-images.githubusercontent.com/29076661/38784345-1aa7aeac-40d6-11e8-839b-2aa5c7e1c0c2.png)
 ### If the book has been issued and isbn number is correct, you will get a screen like the one shown below
 ![image](https://user-images.githubusercontent.com/29076661/38784384-b711483e-40d6-11e8-81c9-860c4d86e5fa.png)
-
 
 ### To edit or delete book or members. From the member table or book table, right click on the record you would like to 
 ### and choose either edit or delete from the context menu.
